@@ -20,17 +20,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      # Extract the tag Version
-      - name: Get Tag Version
-        id: get_tag
-        run: echo "TAG_VERSION=$(echo ${GITHUB_REF#refs/tags/})" >> $GITHUB_ENV
-      # Get Latest Tag 
+      # Step 2: Fetch all tags and get the latest tag from the repository
       - name: Get Latest Tag
         id: get_latest_tag
         run: |
-              git fetch --tags
-              LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
-              echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
+          git fetch --tags  # Ensure all tags are fetched
+          LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
+          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
 
       # Step 2: Set up JDK 17
       - name: Set up JDK 17
