@@ -20,6 +20,13 @@ jobs:
       - name: Get Tag Version
         id: get_tag
         run: echo "TAG_VERSION=$(echo ${GITHUB_REF#refs/tags/})" >> $GITHUB_ENV
+      # Get Latest Tag 
+      - name: Get Latest Tag
+        id: get_latest_tag
+        run: |
+              git fetch --tags
+              LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+              echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
       # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
@@ -42,18 +49,18 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.TAG_VERSION }} .
-      
+      # If Pull Request - Analyze Docker Image
       - name: Analyze for critical and high CVEs
         id: docker-scout-cves
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: docker/scout-action@v1
         with:
           command: cves
-          image: ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.TAG_VERSION }}
+          image: ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.LATEST_TAG }}
           sarif-file: sarif.output.json
           summary: true
           github-token: ${{ secrets.TOKEN_HUB }}
-  
+      # Upload the Result on Github
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
