@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: '17'
+          distribution: 'oracle'
 
       # Step 3: Build JAR
       - name: Build JAR
