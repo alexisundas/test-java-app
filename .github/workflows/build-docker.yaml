@@ -4,10 +4,16 @@ on:
   push:
     tags:
       - 'v*.*.*'  # Trigger the pipeline on tags matching v1.0.0 format, e.g., v1.0.0, v2.1.3
+  pull_request:
+    branches: [ "**" ]
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      pull-requests: write
 
     steps:
       # Extract the tag Version
@@ -36,7 +42,22 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.TAG_VERSION }} .
-          docker scout cves ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.TAG_VERSION }}
+      - name: Analyze for critical and high CVEs
+        id: docker-scout-cves
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: docker/scout-action@v1
+        with:
+          command: cves
+          image: ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.TAG_VERSION }}
+          sarif-file: sarif.output.json
+          summary: true
+  
+      - name: Upload SARIF result
+        id: upload-sarif
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: sarif.output.json
 
       # Step 6: Log in to Docker Hub
       - name: Log in to Docker Hub
