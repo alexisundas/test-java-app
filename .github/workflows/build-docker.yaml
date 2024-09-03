@@ -42,6 +42,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.TAG_VERSION }} .
+      
       - name: Analyze for critical and high CVEs
         id: docker-scout-cves
         if: ${{ github.event_name != 'pull_request_target' }}
@@ -51,6 +52,7 @@ jobs:
           image: ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.TAG_VERSION }}
           sarif-file: sarif.output.json
           summary: true
+          github-token: ${{ secrets.TOKEN_HUB }}
   
       - name: Upload SARIF result
         id: upload-sarif
