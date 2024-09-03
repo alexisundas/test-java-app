@@ -16,6 +16,10 @@ jobs:
       pull-requests: write
 
     steps:
+      # Step 1: Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
       # Extract the tag Version
       - name: Get Tag Version
         id: get_tag
@@ -27,9 +31,6 @@ jobs:
               git fetch --tags
               LATEST_TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
               echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
-      # Step 1: Checkout code
-      - name: Checkout code
-        uses: actions/checkout@v4
 
       # Step 2: Set up JDK 17
       - name: Set up JDK 17
