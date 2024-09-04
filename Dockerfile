@@ -1,5 +1,5 @@
 #Official JDK image from Docker Hub
-FROM openjdk:17-jdk-slim
+FROM cgr.dev/chainguard/jdk
 
 #Set the Working Directory
 WORKDIR "/app"
