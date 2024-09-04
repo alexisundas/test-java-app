@@ -45,7 +45,7 @@ jobs:
       # Step 5: Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.TAG_VERSION }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/websitecounter:${{ env.LATEST_TAG }} .
       # If Pull Request - Analyze Docker Image
       - name: Analyze for critical and high CVEs
         id: docker-scout-cves
