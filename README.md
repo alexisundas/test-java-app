@@ -13,4 +13,4 @@ Before getting started, ensure you have the following:
 5. **Docker Hub Account**: For storing the Docker image.
 6. **AWS Account**: For deploying the application on AWS EC2.
 
-More infos soon...
+
