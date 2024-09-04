@@ -1,4 +1,4 @@
-#Official JDK image from Docker Hub
+#Distroless JDK image Chainguard
 FROM cgr.dev/chainguard/jdk
 
 #Set the Working Directory
