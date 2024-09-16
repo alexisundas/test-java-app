@@ -1,11 +1,32 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Counter</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-<h1>Welcome to Alexis Website</h1>
-<p>You have visited this page <span th:text="${visitCount}"></span> times.</p>
+<header>
+    <nav>
+        <div class="logo">
+            <h1>Visitor Counter</h1>
+        </div>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <div class="content">
+            <h2>Welcome to Our Website</h2>
+            <p>We are happy to have you here! Our website has been visited:</p> <h1 class="count" th:text="${visitCount}"></h1> <p>times.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2024 WebsiteCounter - All rights reserved Alexis</p>
+</footer>
 </body>
 </html>
