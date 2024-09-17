@@ -61,13 +61,6 @@ jobs:
           sarif-file: sarif.output.json
           summary: true
           github-token: ${{ secrets.TOKEN_HUB }}
-      # Upload the Result on Github
-      - name: Upload SARIF result
-        id: upload-sarif
-        if: ${{ github.event_name != 'pull_request_target' }}
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: sarif.output.json
 
 
       # Push Docker image to Docker Hub
