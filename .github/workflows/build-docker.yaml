@@ -19,14 +19,11 @@ jobs:
       # Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
-      
-      # Fetch all tags and get the latest tag from the repository
-      - name: Get Latest Tag
-        id: get_latest_tag
-        run: |
-          git fetch --tags  # Ensure all tags are fetched
-          LATEST_TAG=$(git tag -l | sort -V | tail -n 1)
-          echo "LATEST_TAG=${LATEST_TAG}" >> $GITHUB_ENV
+
+      # Fetch all tag from POM.xml
+      - name: Extract version from pom.xml
+        id: extract_version
+        run: echo "LATEST_TAG=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
       
       # Log in to Docker Hub
       - name: Log in to Docker Hub
