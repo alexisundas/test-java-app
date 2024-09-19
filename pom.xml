@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.alexis</groupId>
 	<artifactId>WebsiteCounter</artifactId>
-	<version>0.0.6</version>
+	<version>v0.0.7</version>
 	<name>WebsiteCounter</name>
 	<description>WebsiteCounter-Test</description>
 	<url/>
