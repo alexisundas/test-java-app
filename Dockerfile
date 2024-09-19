@@ -4,7 +4,7 @@ FROM cgr.dev/chainguard/jdk
 #Set the Working Directory
 WORKDIR "/app"
 #Copy the Jar file into the Container
-COPY "target/WebsiteCounter-0.0.1-SNAPSHOT.jar" "app.jar"
+COPY "target/WebsiteCounter-*.jar" "app.jar"
 #Expose the port
 EXPOSE 8080
 
