@@ -8,9 +8,9 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>com.alexis</groupId>
 	<artifactId>WebsiteCounter</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.6</version>
 	<name>WebsiteCounter</name>
 	<description>WebsiteCounter-Test</description>
 	<url/>
